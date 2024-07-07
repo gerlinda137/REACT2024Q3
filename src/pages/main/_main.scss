@@ -7,3 +7,20 @@
   background-color: var(--bg);
   height: 100%;
 }
+
+.search-input {
+  margin-bottom: 20px;
+}
+
+.results {
+  .card-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .result-card {
+    width: 300px;
+  }
+}
