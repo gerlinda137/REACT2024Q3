@@ -10,6 +10,7 @@ export default class MainPage extends React.Component {
           className="search-input"
           placeholder="Enter your search term..."
         />
+        <section className="results"></section>
       </section>
     );
   }
