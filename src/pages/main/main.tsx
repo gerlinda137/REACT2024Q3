@@ -57,7 +57,7 @@ export default class MainPage extends React.Component<unknown, MainPageState> {
                   key={index}
                   title={result.show.name}
                   description={result.show.summary}
-                  // image={result.show.image.medium}
+                  image={result.show.image?.original}
                   className="result-card"
                 />
               ))}
