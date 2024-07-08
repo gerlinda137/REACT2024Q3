@@ -27,6 +27,18 @@ export default class MainPage extends React.Component<unknown, MainPageState> {
     return results;
   }
 
+  async getInitialResults() {
+    const query = localStorage.getItem('query');
+    if (query) {
+      const results = await this.handleSearch(query);
+      this.setState({ results });
+    }
+  }
+
+  componentDidMount() {
+    this.getInitialResults();
+  }
+
   render() {
     const results = this.state.results;
     return (

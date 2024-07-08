@@ -36,6 +36,7 @@ export default class SearchInput extends Component<SearchProps, SearchState> {
     // const results: SearchResult[] = await searchShows(query);
     // console.log(results);
     // this.setState({ results });
+    localStorage.setItem('query', query);
   };
 
   render() {
