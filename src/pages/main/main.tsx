@@ -52,9 +52,9 @@ export default class MainPage extends React.Component<unknown, MainPageState> {
         <section className="results">
           {results.length > 0 ? (
             <div className="card-container">
-              {results.map((result, index) => (
+              {results.map((result) => (
                 <Card
-                  key={index}
+                  key={result.show.id}
                   title={result.show.name}
                   description={result.show.summary}
                   image={result.show.image?.original}
