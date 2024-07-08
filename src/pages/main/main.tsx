@@ -19,6 +19,14 @@ export default class MainPage extends React.Component<unknown, MainPageState> {
     // this.handleSearch = this.handleSearch.bind(this);
   }
 
+  async getInitialResults() {
+    const query = localStorage.getItem('query');
+    if (query) {
+      const results = await this.handleSearch(query);
+      this.setState({ results });
+    }
+  }
+
   async handleSearch(query: string) {
     const results = await searchShows(query);
     this.searchInput.current!.setResults(results);
@@ -29,6 +37,7 @@ export default class MainPage extends React.Component<unknown, MainPageState> {
 
   render() {
     const results = this.state.results;
+    this.getInitialResults();
     return (
       <section className="main-page">
         <SearchInput
