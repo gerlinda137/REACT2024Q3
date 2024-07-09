@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from '../../components/card/card';
+import ErrorTrigger from '../../components/errorTrigger/errorTrigger';
 import SearchInput from '../../components/searchInput/searchInput';
 import { SearchResult, searchShows } from '../../utils/apiHandler';
 import './_main.scss';
@@ -43,6 +44,7 @@ export default class MainPage extends React.Component<unknown, MainPageState> {
     const results = this.state.results;
     return (
       <section className="main-page">
+        <ErrorTrigger />
         <SearchInput
           className="search-input"
           placeholder="Enter your search term..."
