@@ -12,7 +12,13 @@ interface CardProps {
 export default class Card extends Component<CardProps> {
   render() {
     const { title, description, image, className } = this.props;
-    const showDescription = truncateString(description, 150);
+    let showDescription = '';
+    if (description) {
+      showDescription = truncateString(description, 150);
+    } else {
+      showDescription = 'No description';
+    }
+
     let cardImage = '';
     if (image) {
       cardImage = image;

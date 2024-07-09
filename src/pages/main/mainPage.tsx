@@ -1,12 +1,14 @@
 import React from 'react';
 import Card from '../../components/card/card';
 import ErrorTrigger from '../../components/errorTrigger/errorTrigger';
+import SearchLoader from '../../components/loader/loader';
 import SearchInput from '../../components/searchInput/searchInput';
 import { SearchResult, searchShows } from '../../utils/apiHandler';
-import './_main.scss';
+import './_mainPage.scss';
 
 interface MainPageState {
   results: SearchResult[];
+  loading: boolean;
 }
 export default class MainPage extends React.Component<unknown, MainPageState> {
   searchInput: React.RefObject<SearchInput>;
@@ -15,16 +17,17 @@ export default class MainPage extends React.Component<unknown, MainPageState> {
     super(props);
     this.searchInput = React.createRef();
     this.state = {
-      results: []
+      results: [],
+      loading: false
     };
     // this.handleSearch = this.handleSearch.bind(this);
   }
 
   async handleSearch(query: string) {
+    this.setState({ loading: true });
     const results = await searchShows(query);
     this.searchInput.current!.setResults(results);
-    this.setState({ results });
-    console.log(results);
+    this.setState({ results, loading: false });
     return results;
   }
 
@@ -41,7 +44,7 @@ export default class MainPage extends React.Component<unknown, MainPageState> {
   }
 
   render() {
-    const results = this.state.results;
+    const { results, loading } = this.state;
     return (
       <section className="main-page">
         <ErrorTrigger />
@@ -52,7 +55,9 @@ export default class MainPage extends React.Component<unknown, MainPageState> {
           ref={this.searchInput}
         />
         <section className="results">
-          {results.length > 0 ? (
+          {loading ? (
+            <SearchLoader isLoading={loading} text="Loading..." />
+          ) : results.length > 0 ? (
             <div className="card-container">
               {results.map((result) => (
                 <Card
