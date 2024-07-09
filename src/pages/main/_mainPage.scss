@@ -1,0 +1,37 @@
+.main-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: var(--bg);
+  height: 100%;
+  padding: 0 2em;
+}
+
+.search-input {
+  margin-bottom: 20px;
+}
+
+.results {
+  .card-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+
+  .result-card {
+    width: 250px;
+  }
+}
+
+.error-btn {
+  margin-top: 2em;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
