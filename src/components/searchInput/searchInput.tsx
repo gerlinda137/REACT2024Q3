@@ -33,9 +33,6 @@ export default class SearchInput extends Component<SearchProps, SearchState> {
   handleSearchSubmit = () => {
     const { query } = this.state;
     this.props.handleSearch(query);
-    // const results: SearchResult[] = await searchShows(query);
-    // console.log(results);
-    // this.setState({ results });
     localStorage.setItem('query', query);
   };
 

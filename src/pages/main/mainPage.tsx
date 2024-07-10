@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from '../../components/card/card';
-import ErrorTrigger from '../../components/errorTrigger/errorTrigger';
+import ErrorTrigger from '../../components/errorTriggerBtn/errorTriggerBtn';
 import SearchLoader from '../../components/loader/loader';
 import SearchInput from '../../components/searchInput/searchInput';
 import { SearchResult, searchShows } from '../../utils/apiHandler';
@@ -20,7 +20,6 @@ export default class MainPage extends React.Component<unknown, MainPageState> {
       results: [],
       loading: false
     };
-    // this.handleSearch = this.handleSearch.bind(this);
   }
 
   async handleSearch(query: string) {
