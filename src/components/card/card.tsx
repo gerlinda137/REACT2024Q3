@@ -12,20 +12,13 @@ interface CardProps {
 export default class Card extends Component<CardProps> {
   render() {
     const { title, description, image, className } = this.props;
-    let showDescription = '';
-    if (description) {
-      showDescription = truncateString(description, 150);
-    } else {
-      showDescription = 'No description';
-    }
 
-    let cardImage = '';
-    if (image) {
-      cardImage = image;
-    } else {
-      cardImage =
-        'https://www.svgrepo.com/show/508699/landscape-placeholder.svg';
-    }
+    const showDescription = description
+      ? truncateString(description, 150)
+      : 'No description';
+    const cardImage = image
+      ? image
+      : 'https://www.svgrepo.com/show/508699/landscape-placeholder.svg';
 
     return (
       <div className={`card ${className}`}>
