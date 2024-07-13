@@ -1,4 +1,5 @@
-import { Component } from 'react';
+import React from 'react';
+import { useEffect, useState } from 'react';
 import './loader.scss';
 
 interface LoaderProps {
@@ -6,41 +7,28 @@ interface LoaderProps {
   isLoading: boolean;
 }
 
-interface LoaderState {
-  isLoading: boolean;
-}
+const SearchLoader: React.FC<LoaderProps> = ({
+  text = 'LOADING...',
+  isLoading
+}) => {
+  const [internalLoading, setInternalLoading] = useState<boolean>(isLoading);
 
-export default class SearchLoader extends Component<LoaderProps, LoaderState> {
-  static defaultProps = {
-    text: 'LOADING...'
-  };
-
-  constructor(props: LoaderProps) {
-    super(props);
-    this.state = {
-      isLoading: props.isLoading
-    };
-  }
-
-  componentDidUpdate(prevProps: LoaderProps) {
-    if (prevProps.isLoading !== this.props.isLoading) {
-      this.setState({ isLoading: this.props.isLoading });
+  useEffect(() => {
+    if (isLoading !== internalLoading) {
+      setInternalLoading(isLoading);
     }
-  }
+  }, [isLoading, internalLoading]);
 
-  render() {
-    const { text } = this.props;
-    const { isLoading } = this.state;
-
-    if (isLoading) {
-      return (
-        <div className="loader-container">
-          <div className="loader"></div>
-          <p>{text}</p>
-        </div>
-      );
-    } else {
-      return null;
-    }
+  if (internalLoading) {
+    return (
+      <div className="loader-container">
+        <div className="loader"></div>
+        <p>{text}</p>
+      </div>
+    );
+  } else {
+    return null;
   }
-}
+};
+
+export default SearchLoader;

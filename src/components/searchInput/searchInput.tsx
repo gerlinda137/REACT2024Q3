@@ -21,7 +21,6 @@ export interface SearchInputRef {
 const SearchInput = forwardRef<SearchInputRef, SearchProps>((props, ref) => {
   const { className, placeholder, handleSearch } = props;
   const [query, setQuery] = useState('');
-  // const [results, setResults] = useState<SearchResult[]>([]);
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
