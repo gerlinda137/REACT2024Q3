@@ -1,47 +1,31 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
-interface ErrorTriggerState {
-  throwError: boolean;
-}
+const ErrorTrigger: React.FC = () => {
+  const [throwError, setThrowError] = useState(false);
+  const isMounted = useRef(true);
 
-export default class ErrorTrigger extends Component<
-  unknown,
-  ErrorTriggerState
-> {
-  isMounted: boolean = false;
-
-  constructor(props: unknown) {
-    super(props);
-    this.state = {
-      throwError: false
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
     };
+  }, []);
 
-    this.triggerError = this.triggerError.bind(this);
-  }
-
-  componentDidMount() {
-    this.isMounted = true;
-  }
-
-  componentWillUnmount() {
-    this.isMounted = false;
-  }
-
-  triggerError() {
-    if (this.isMounted) {
-      this.setState({ throwError: true });
+  const triggerError = () => {
+    if (isMounted.current) {
+      setThrowError(true);
     }
+  };
+
+  if (throwError) {
+    throw new Error('Intentional Error');
   }
 
-  render() {
-    if (this.state.throwError) {
-      throw new Error('Intentional Error');
-    }
+  return (
+    <button className="error-btn" onClick={triggerError}>
+      Click to trigger error
+    </button>
+  );
+};
 
-    return (
-      <button className="error-btn" onClick={this.triggerError}>
-        Click to trigger error
-      </button>
-    );
-  }
-}
+export default ErrorTrigger;
