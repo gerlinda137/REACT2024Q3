@@ -3,7 +3,7 @@ import Card from '../../components/card/card';
 import ErrorTrigger from '../../components/errorTriggerBtn/errorTriggerBtn';
 import SearchLoader from '../../components/loader/loader';
 import SearchInput from '../../components/searchInput/searchInput';
-import { SearchResult, searchShows } from '../../utils/apiHandler';
+import { SearchResult, searchShows } from '../../api/apiHandler';
 import './_mainPage.scss';
 
 interface MainPageState {
@@ -20,6 +20,9 @@ export default class MainPage extends React.Component<unknown, MainPageState> {
       results: [],
       loading: false
     };
+
+    this.handleSearch = this.handleSearch.bind(this);
+    this.getInitialResults = this.getInitialResults.bind(this);
   }
 
   async handleSearch(query: string) {

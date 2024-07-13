@@ -1,5 +1,5 @@
 import { ChangeEvent, Component } from 'react';
-import { SearchResult } from '../../utils/apiHandler';
+import { SearchResult } from '../../api/apiHandler';
 import './searchInput.scss';
 
 interface SearchProps {
@@ -20,21 +20,24 @@ export default class SearchInput extends Component<SearchProps, SearchState> {
       query: '',
       results: []
     };
+
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
   }
 
   public setResults(results: SearchResult[]) {
     this.setState({ results });
   }
 
-  handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+  handleSearchChange(event: ChangeEvent<HTMLInputElement>) {
     this.setState({ query: event.target.value });
-  };
+  }
 
-  handleSearchSubmit = () => {
+  handleSearchSubmit() {
     const { query } = this.state;
     this.props.handleSearch(query);
     localStorage.setItem('query', query);
-  };
+  }
 
   componentDidMount() {
     const prevQuery = localStorage.getItem('query');
