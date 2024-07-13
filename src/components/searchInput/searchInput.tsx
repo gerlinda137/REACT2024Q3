@@ -1,20 +1,43 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import {
+  ChangeEvent,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useState
+} from 'react';
 import { SearchResult } from '../../api/apiHandler';
 import './searchInput.scss';
 
 interface SearchProps {
   className: string;
   placeholder: string;
-  handleSearch: (query: string) => void;
+  handleSearch: (query: string) => Promise<SearchResult[]>;
 }
 
-const SearchInput: React.FC<SearchProps> = ({
-  className,
-  placeholder,
-  handleSearch
-}) => {
+export interface SearchInputRef {
+  setResults: (results: SearchResult[]) => void;
+}
+
+const SearchInput = forwardRef<SearchInputRef, SearchProps>((props, ref) => {
+  const { className, placeholder, handleSearch } = props;
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState<SearchResult[]>([]);
+  // const [results, setResults] = useState<SearchResult[]>([]);
+
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
+
+  const handleSearchSubmit = async () => {
+    try {
+      const searchResults = await handleSearch(query);
+      if (ref && 'current' in ref && ref.current) {
+        ref.current.setResults(searchResults);
+      }
+      localStorage.setItem('query', query);
+    } catch (error) {
+      console.error('Error searching:', error);
+    }
+  };
 
   useEffect(() => {
     const prevQuery = localStorage.getItem('query');
@@ -23,18 +46,9 @@ const SearchInput: React.FC<SearchProps> = ({
     }
   }, []);
 
-  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
-  };
-
-  const handleSearchSubmit = () => {
-    handleSearch(query);
-    localStorage.setItem('query', query);
-  };
-
-  const setSearchResults = (results: SearchResult[]) => {
-    setResults(results);
-  };
+  useImperativeHandle(ref, () => ({
+    setResults: () => {}
+  }));
 
   return (
     <section className={className}>
@@ -47,57 +61,8 @@ const SearchInput: React.FC<SearchProps> = ({
       <button onClick={handleSearchSubmit}>Search</button>
     </section>
   );
-};
+});
 
-// export default class SearchInput extends Component<SearchProps, SearchState> {
-//   constructor(props: SearchProps) {
-//     super(props);
-//     this.state = {
-//       query: '',
-//       results: []
-//     };
-
-//     this.handleSearchChange = this.handleSearchChange.bind(this);
-//     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
-//   }
-
-//   public setResults(results: SearchResult[]) {
-//     this.setState({ results });
-//   }
-
-//   handleSearchChange(event: ChangeEvent<HTMLInputElement>) {
-//     this.setState({ query: event.target.value });
-//   }
-
-//   handleSearchSubmit() {
-//     const { query } = this.state;
-//     this.props.handleSearch(query);
-//     localStorage.setItem('query', query);
-//   }
-
-//   componentDidMount() {
-//     const prevQuery = localStorage.getItem('query');
-//     if (prevQuery) {
-//       this.setState({ query: prevQuery });
-//     }
-//   }
-
-//   render() {
-//     const { className, placeholder } = this.props;
-//     const { query } = this.state;
-
-//     return (
-//       <section className={className}>
-//         <input
-//           type="text"
-//           placeholder={placeholder}
-//           value={query}
-//           onChange={this.handleSearchChange}
-//         />
-//         <button onClick={this.handleSearchSubmit}>Search</button>
-//       </section>
-//     );
-//   }
-// }
+SearchInput.displayName = 'SearchInput';
 
 export default SearchInput;
