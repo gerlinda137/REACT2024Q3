@@ -2,33 +2,31 @@ import React from 'react';
 import './detailedCard.scss';
 import { useLoaderData } from 'react-router-dom';
 import { searchShowById } from '../../api/apiHandler';
+import {
+  DetailedCardParams,
+  DetailedCardProps,
+  DetailedCardData
+} from '../../interfaces/interfaces';
 
-interface DetailedCardProps {
-  title: string;
-  year: string;
-  director: string;
-  description: string;
-  poster: string;
-}
-
-interface detailedCardParams {
-  id: string;
-}
-
-export async function loader({ id }: detailedCardParams) {
+export async function loader({ id }: DetailedCardParams) {
   const detailedCard = await searchShowById(id);
   return { detailedCard };
 }
 
-const DetailedCard: React.FC<DetailedCardProps> = (/*{
+export const DetailedCard: React.FC<DetailedCardProps> = (/*{
   title,
   year,
   director,
   description,
   poster
 }*/) => {
-  const { detailedCard } = useLoaderData();
-  return (
+  // const detailedCard = useLoaderData() as DetailedCardData;
+
+  const { detailedCard } = useLoaderData() as {
+    detailedCard: DetailedCardData;
+  };
+  console.log(detailedCard);
+  return detailedCard ? (
     <div className="detailed-card">
       <img
         src={detailedCard.poster}
@@ -44,6 +42,8 @@ const DetailedCard: React.FC<DetailedCardProps> = (/*{
         <p className="detailed-card__description">{detailedCard.plot}</p>
       </div>
     </div>
+  ) : (
+    <div>Error</div>
   );
 };
 

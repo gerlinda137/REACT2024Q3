@@ -5,8 +5,9 @@ import SearchLoader from '../../components/loader/loader';
 import SearchInput, {
   SearchInputRef
 } from '../../components/searchInput/searchInput';
-import { Result, searchShows } from '../../api/apiHandler';
+import { searchShows } from '../../api/apiHandler';
 import './mainPage.scss';
+import { Result } from '../../interfaces/interfaces';
 
 const MainPage: React.FC = () => {
   const [results, setResults] = useState<Result[]>([]);

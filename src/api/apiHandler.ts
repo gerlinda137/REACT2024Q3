@@ -1,20 +1,5 @@
 import axios from 'axios';
-
-export interface Result {
-  Poster: string;
-  Title: string;
-  Type: string;
-  Year: string;
-  imdbID: string;
-}
-
-interface DetailedCard {
-  title: string;
-  year: string;
-  director: string;
-  plot: string;
-  poster: string;
-}
+import { DetailedCardData, Result } from '../interfaces/interfaces';
 
 export const searchShowById = async (id: string) => {
   try {
@@ -28,7 +13,7 @@ export const searchShowById = async (id: string) => {
     });
     console.log(response.data);
 
-    return response.data as DetailedCard;
+    return response.data as DetailedCardData;
   } catch (error) {
     console.error('Error getting show:', error);
     throw error;
