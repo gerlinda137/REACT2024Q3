@@ -5,23 +5,30 @@ import SearchLoader from '../../components/loader/loader';
 import SearchInput, {
   SearchInputRef
 } from '../../components/searchInput/searchInput';
-import { SearchResult, searchShows } from '../../api/apiHandler';
-import './_mainPage.scss';
+import { Result, searchShows } from '../../api/apiHandler';
+import './mainPage.scss';
 
 const MainPage: React.FC = () => {
-  const [results, setResults] = useState<SearchResult[]>([]);
+  const [results, setResults] = useState<Result[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const searchInputRef = useRef<SearchInputRef>(null);
 
   const handleSearch = async (query: string) => {
     setLoading(true);
-    const results = await searchShows(query);
-    if (searchInputRef.current) {
-      searchInputRef.current.setResults(results);
+    try {
+      const results = await searchShows(query);
+      setResults(results);
+      if (searchInputRef.current) {
+        searchInputRef.current.setResults(results);
+      }
+      setLoading(false);
+      return results;
+    } catch (error) {
+      console.error('Error searching shows:', error);
+      setLoading(false);
+      setResults([]); // Reset results on error
+      return [];
     }
-    setResults(results);
-    setLoading(false);
-    return results;
   };
 
   useEffect(() => {
@@ -50,15 +57,17 @@ const MainPage: React.FC = () => {
           <SearchLoader isLoading={loading} text="Loading..." />
         ) : results.length > 0 ? (
           <div className="card-container">
-            {results.map((result) => (
-              <Card
-                key={result.show.id}
-                title={result.show.name}
-                description={result.show.summary}
-                image={result.show.image?.original}
-                className="result-card"
-              />
-            ))}
+            {results.map((result) =>
+              result ? (
+                <Card
+                  key={result.imdbID}
+                  title={result.Title}
+                  year={result.Year}
+                  image={result.Poster}
+                  className="result-card"
+                />
+              ) : null
+            )}
           </div>
         ) : (
           <p>No results found</p>
