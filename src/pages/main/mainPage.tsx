@@ -61,6 +61,7 @@ const MainPage: React.FC = () => {
               result ? (
                 <Card
                   key={result.imdbID}
+                  id={result.imdbID}
                   title={result.Title}
                   year={result.Year}
                   image={result.Poster}

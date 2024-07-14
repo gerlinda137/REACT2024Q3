@@ -4,14 +4,32 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import './index.css';
 import ErrorBoundary from './components/errorBoundary/errorBoundary';
-import Root from './routes/root';
+import Root, { loader as rootLoader } from './routes/root';
 import ErrorPage from './pages/errorPage/errorPage';
+import DetailedCard /*, {
+  loader as detailedCardLoader
+}*/ from './components/detailedCard/detailedCard';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
-    errorElement: <ErrorPage />
+    errorElement: <ErrorPage />,
+    // loader: rootLoader,
+    children: [
+      {
+        path: '/:detailedId',
+        element: (
+          <DetailedCard
+            title="Kek"
+            year="1996"
+            director="kek"
+            description="kek"
+            poster="kek"
+          />
+        )
+      }
+    ]
   }
 ]);
 
