@@ -8,7 +8,7 @@ export interface Result {
   imdbID: string;
 }
 
-export const searchShows = async (/*query: string*/) => {
+export const searchShows = async (query?: string) => {
   // try {
   //   const apiKey = import.meta.env.VITE_API_KEY as string;
   //   const BASE_URL = `http://www.omdbapi.com/?apikey=${apiKey}`;
