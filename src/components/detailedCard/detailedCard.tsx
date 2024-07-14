@@ -4,24 +4,20 @@ import { useLoaderData } from 'react-router-dom';
 import { searchShowById } from '../../api/apiHandler';
 import {
   DetailedCardParams,
-  DetailedCardProps,
   DetailedCardData
 } from '../../interfaces/interfaces';
 
-export async function loader({ id }: DetailedCardParams) {
-  const detailedCard = await searchShowById(id);
-  return { detailedCard };
-}
+export const loader = async ({ id }: DetailedCardParams) => {
+  try {
+    const detailedCardData = await searchShowById(id);
+    return { detailedCardData };
+  } catch (error) {
+    console.error('Error fetching detailed card data:', error);
+    throw error;
+  }
+};
 
-export const DetailedCard: React.FC<DetailedCardProps> = (/*{
-  title,
-  year,
-  director,
-  description,
-  poster
-}*/) => {
-  // const detailedCard = useLoaderData() as DetailedCardData;
-
+export const DetailedCard: React.FC = () => {
   const { detailedCard } = useLoaderData() as {
     detailedCard: DetailedCardData;
   };
