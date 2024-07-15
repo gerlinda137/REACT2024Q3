@@ -1,19 +1,18 @@
 import React from 'react';
 import './detailedCard.scss';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link, Params, useLoaderData } from 'react-router-dom';
 import { searchShowById } from '../../api/apiHandler';
-import {
-  DetailedCardData,
-  DetailedCardLoader
-} from '../../interfaces/interfaces';
+import { DetailedCardData } from '../../interfaces/interfaces';
 
-export const loader = async ({ params }: { params: DetailedCardLoader }) => {
-  try {
-    const detailedCard = await searchShowById(params.detailedId);
-    return { detailedCard };
-  } catch (error) {
-    console.error('Error fetching detailed card data:', error);
-    throw error;
+export const loader = async ({ params }: { params: Params<string> }) => {
+  if (params.detailedId) {
+    try {
+      const detailedCard = await searchShowById(params.detailedId);
+      return { detailedCard };
+    } catch (error) {
+      console.error('Error fetching detailed card data:', error);
+      throw error;
+    }
   }
 };
 

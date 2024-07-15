@@ -25,6 +25,3 @@ export interface DetailedCardProps {
 export interface DetailedCardParams {
   id: string;
 }
-export interface DetailedCardLoader {
-  detailedId: string;
-}
