@@ -5,6 +5,7 @@ import {
   useImperativeHandle,
   useState
 } from 'react';
+import { Link } from 'react-router-dom';
 import { Result } from '../../interfaces/interfaces';
 
 import './searchInput.scss';
@@ -58,7 +59,9 @@ const SearchInput = forwardRef<SearchInputRef, SearchProps>((props, ref) => {
         value={query}
         onChange={handleSearchChange}
       />
-      <button onClick={handleSearchSubmit}>Search</button>
+      <Link to="/">
+        <button onClick={handleSearchSubmit}>Search</button>
+      </Link>
     </section>
   );
 });

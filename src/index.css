@@ -64,6 +64,7 @@ button:focus-visible {
 
 .container {
   display: flex;
+  width: 100%;
   padding-right: 2em;
 }
 

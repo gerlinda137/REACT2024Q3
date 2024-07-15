@@ -3,6 +3,7 @@ import './detailedCard.scss';
 import { defer, Link, Params, useLoaderData } from 'react-router-dom';
 import { searchShowById } from '../../api/apiHandler';
 import { DetailedCardData } from '../../interfaces/interfaces';
+import SearchLoader from '../loader/loader';
 
 export const detailedCardLoader = async ({
   params
@@ -27,7 +28,7 @@ interface DetailedCardLoaderData {
 export const DetailedCard: React.FC = () => {
   const [detailedCard, setDetailedCard] = useState<
     DetailedCardData | undefined
-  >(undefined);
+  >();
 
   const loaderData = useLoaderData() as DetailedCardLoaderData;
 
@@ -37,7 +38,11 @@ export const DetailedCard: React.FC = () => {
       setDetailedCard(cardData);
     };
     asyncFn();
-  }, []);
+
+    return () => {
+      setDetailedCard(undefined);
+    };
+  }, [loaderData]);
 
   return detailedCard ? (
     <div className="detailed-card">
@@ -59,7 +64,7 @@ export const DetailedCard: React.FC = () => {
       </div>
     </div>
   ) : (
-    <div className="detailed-card">Loading</div>
+    <SearchLoader isLoading={true} />
   );
 };
 
