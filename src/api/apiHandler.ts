@@ -4,7 +4,7 @@ import { DetailedCardData, Result } from '../interfaces/interfaces';
 export const searchShowById = async (id: string) => {
   try {
     const apiKey = import.meta.env.VITE_API_KEY as string;
-    const BASE_URL = `http://www.omdbapi.com/?apikey=${apiKey}`;
+    const BASE_URL = `https://www.omdbapi.com/?apikey=${apiKey}`;
     const cardId = id.substring(1);
     const response = await axios.get(`${BASE_URL}`, {
       params: {
@@ -23,7 +23,7 @@ export const searchShowById = async (id: string) => {
 export const searchShows = async (query?: string) => {
   try {
     const apiKey = import.meta.env.VITE_API_KEY as string;
-    const BASE_URL = `http://www.omdbapi.com/?apikey=${apiKey}`;
+    const BASE_URL = `https://www.omdbapi.com/?apikey=${apiKey}`;
 
     const response = await axios.get(`${BASE_URL}`, {
       params: {

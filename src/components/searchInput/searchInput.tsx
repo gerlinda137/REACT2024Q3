@@ -5,17 +5,18 @@ import {
   useImperativeHandle,
   useState
 } from 'react';
-import { SearchResult } from '../../api/apiHandler';
+import { Result } from '../../interfaces/interfaces';
+
 import './searchInput.scss';
 
 interface SearchProps {
   className: string;
   placeholder: string;
-  handleSearch: (query: string) => Promise<SearchResult[]>;
+  handleSearch: (query: string) => Promise<Result[]>;
 }
 
 export interface SearchInputRef {
-  setResults: (results: SearchResult[]) => void;
+  setResults: (results: Result[]) => void;
 }
 
 const SearchInput = forwardRef<SearchInputRef, SearchProps>((props, ref) => {

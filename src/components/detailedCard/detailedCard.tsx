@@ -20,7 +20,7 @@ export const DetailedCard: React.FC = () => {
   const { detailedCard } = useLoaderData() as {
     detailedCard: DetailedCardData;
   };
-  console.log(detailedCard);
+
   return detailedCard ? (
     <div className="detailed-card">
       <Link to={'/'}>
@@ -41,7 +41,7 @@ export const DetailedCard: React.FC = () => {
       </div>
     </div>
   ) : (
-    <div>Error</div>
+    <div className="detailed-card">Error</div>
   );
 };
 
