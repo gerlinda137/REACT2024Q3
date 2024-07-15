@@ -1,16 +1,16 @@
 import React from 'react';
 import './detailedCard.scss';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import { searchShowById } from '../../api/apiHandler';
 import {
-  DetailedCardParams,
-  DetailedCardData
+  DetailedCardData,
+  DetailedCardLoader
 } from '../../interfaces/interfaces';
 
-export const loader = async ({ id }: DetailedCardParams) => {
+export const loader = async ({ params }: { params: DetailedCardLoader }) => {
   try {
-    const detailedCardData = await searchShowById(id);
-    return { detailedCardData };
+    const detailedCard = await searchShowById(params.detailedId);
+    return { detailedCard };
   } catch (error) {
     console.error('Error fetching detailed card data:', error);
     throw error;
@@ -24,18 +24,21 @@ export const DetailedCard: React.FC = () => {
   console.log(detailedCard);
   return detailedCard ? (
     <div className="detailed-card">
+      <Link to={'/'}>
+        <button className="detailed-card__close-btn">Close</button>
+      </Link>
       <img
-        src={detailedCard.poster}
-        alt={`${detailedCard.title} poster`}
+        src={detailedCard.Poster}
+        alt={`${detailedCard.Title} poster`}
         className="detailed-card__poster"
       />
       <div className="detailed-card__content">
-        <h2 className="detailed-card__title">{detailedCard.title}</h2>
-        <p className="detailed-card__year">Year: {detailedCard.year}</p>
+        <h2 className="detailed-card__title">{detailedCard.Title}</h2>
+        <p className="detailed-card__year">Year: {detailedCard.Year}</p>
         <p className="detailed-card__director">
-          Director: {detailedCard.director}
+          Director: {detailedCard.Director}
         </p>
-        <p className="detailed-card__description">{detailedCard.plot}</p>
+        <p className="detailed-card__description">{detailedCard.Plot}</p>
       </div>
     </div>
   ) : (

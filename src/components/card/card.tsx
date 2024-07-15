@@ -11,9 +11,6 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ id, title, year, image, className }) => {
-  // const showDescription = description
-  //   ? truncateString(description, 150)
-  //   : 'No description';
   const cardImage =
     image === 'N/A'
       ? 'https://www.svgrepo.com/show/508699/landscape-placeholder.svg'

@@ -5,10 +5,10 @@ export const searchShowById = async (id: string) => {
   try {
     const apiKey = import.meta.env.VITE_API_KEY as string;
     const BASE_URL = `http://www.omdbapi.com/?apikey=${apiKey}`;
-
+    const cardId = id.substring(1);
     const response = await axios.get(`${BASE_URL}`, {
       params: {
-        i: id
+        i: cardId
       }
     });
     console.log(response.data);

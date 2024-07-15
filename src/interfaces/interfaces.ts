@@ -7,11 +7,11 @@ export interface Result {
 }
 
 export interface DetailedCardData {
-  title: string;
-  year: string;
-  director: string;
-  plot: string;
-  poster: string;
+  Title: string;
+  Year: string;
+  Director: string;
+  Plot: string;
+  Poster: string;
 }
 
 export interface DetailedCardProps {
@@ -24,4 +24,7 @@ export interface DetailedCardProps {
 
 export interface DetailedCardParams {
   id: string;
+}
+export interface DetailedCardLoader {
+  detailedId: string;
 }

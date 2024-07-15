@@ -6,15 +6,23 @@
   margin: 16px 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-top: 12em;
-  width: 600px;
+  width: 700px;
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+  position: relative;
+}
+
+.detailed-card__close-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .detailed-card__poster {
-  width: 150px;
+  width: 300px;
   height: auto;
+  margin-right: 1em;
 }
 
 .detailed-card__content {
