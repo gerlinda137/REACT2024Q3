@@ -6,7 +6,7 @@ import ErrorBoundary from './components/errorBoundary/errorBoundary';
 import Root from './routes/root';
 import ErrorPage from './pages/errorPage/errorPage';
 import DetailedCard, {
-  loader as detailedCardLoader
+  detailedCardLoader
 } from './components/detailedCard/detailedCard';
 
 const router = createBrowserRouter([

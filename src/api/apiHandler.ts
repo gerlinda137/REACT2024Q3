@@ -11,7 +11,6 @@ export const searchShowById = async (id: string) => {
         i: cardId
       }
     });
-    console.log(response.data);
 
     return response.data as DetailedCardData;
   } catch (error) {
@@ -30,7 +29,7 @@ export const searchShows = async (query?: string) => {
         s: query
       }
     });
-    console.log(response.data.Search);
+    console.log(response.data);
 
     return response.data.Search as Result[];
   } catch (error) {

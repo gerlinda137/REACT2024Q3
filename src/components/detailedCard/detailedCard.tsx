@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './detailedCard.scss';
-import { Link, Params, useLoaderData } from 'react-router-dom';
+import { defer, Link, Params, useLoaderData } from 'react-router-dom';
 import { searchShowById } from '../../api/apiHandler';
 import { DetailedCardData } from '../../interfaces/interfaces';
 
-export const loader = async ({ params }: { params: Params<string> }) => {
+export const detailedCardLoader = async ({
+  params
+}: {
+  params: Params<string>;
+}) => {
   if (params.detailedId) {
     try {
-      const detailedCard = await searchShowById(params.detailedId);
-      return { detailedCard };
+      const promise = searchShowById(params.detailedId);
+      return defer({ promise });
     } catch (error) {
       console.error('Error fetching detailed card data:', error);
       throw error;
@@ -16,10 +20,24 @@ export const loader = async ({ params }: { params: Params<string> }) => {
   }
 };
 
+interface DetailedCardLoaderData {
+  promise: Promise<DetailedCardData>;
+}
+
 export const DetailedCard: React.FC = () => {
-  const { detailedCard } = useLoaderData() as {
-    detailedCard: DetailedCardData;
-  };
+  const [detailedCard, setDetailedCard] = useState<
+    DetailedCardData | undefined
+  >(undefined);
+
+  const loaderData = useLoaderData() as DetailedCardLoaderData;
+
+  useEffect(() => {
+    const asyncFn = async () => {
+      const cardData = await loaderData.promise;
+      setDetailedCard(cardData);
+    };
+    asyncFn();
+  }, []);
 
   return detailedCard ? (
     <div className="detailed-card">
@@ -41,7 +59,7 @@ export const DetailedCard: React.FC = () => {
       </div>
     </div>
   ) : (
-    <div className="detailed-card">Error</div>
+    <div className="detailed-card">Loading</div>
   );
 };
 
