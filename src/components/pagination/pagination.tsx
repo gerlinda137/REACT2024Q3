@@ -1,28 +1,29 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  onPageChange: (page: number) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({
-  currentPage,
-  totalPages,
-  onPageChange
-}) => {
+const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages }) => {
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === totalPages;
+  const navigate = useNavigate();
+
+  const handlePageChange = (newPage: number) => {
+    navigate(`page=${newPage}`);
+  };
 
   const handlePrevClick = () => {
-    if (currentPage > 1) {
-      onPageChange(currentPage - 1);
+    if (!isFirstPage) {
+      handlePageChange(currentPage - 1);
     }
   };
 
   const handleNextClick = () => {
-    if (currentPage < totalPages) {
-      onPageChange(currentPage + 1);
+    if (!isLastPage) {
+      handlePageChange(currentPage + 1);
     }
   };
 

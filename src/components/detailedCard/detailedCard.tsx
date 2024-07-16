@@ -25,6 +25,11 @@ interface DetailedCardLoaderData {
   promise: Promise<DetailedCardData>;
 }
 
+interface ErrorResponse {
+  Response: string;
+  Error: string;
+}
+
 export const DetailedCard: React.FC = () => {
   const [detailedCard, setDetailedCard] = useState<
     DetailedCardData | undefined
@@ -35,6 +40,7 @@ export const DetailedCard: React.FC = () => {
   useEffect(() => {
     const asyncFn = async () => {
       const cardData = await loaderData.promise;
+      //to-do: api doesn't return an error when id not found
       setDetailedCard(cardData);
     };
     asyncFn();

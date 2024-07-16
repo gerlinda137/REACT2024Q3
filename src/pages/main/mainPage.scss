@@ -15,17 +15,28 @@
 .results {
   display: flex;
   width: 100%;
+  &__inner {
+    padding-bottom: 2em;
+  }
 
   .card-container {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 30px;
+    margin-bottom: 2em;
   }
 
   .result-card {
     width: 250px;
   }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
 }
 
 .error-btn {

@@ -19,17 +19,19 @@ export const searchShowById = async (id: string) => {
   }
 };
 
-export const searchShows = async (query?: string) => {
+export const searchShows = async (query?: string, page: number = 1) => {
   try {
     const apiKey = import.meta.env.VITE_API_KEY as string;
     const BASE_URL = `https://www.omdbapi.com/?apikey=${apiKey}`;
 
     const response = await axios.get(`${BASE_URL}`, {
       params: {
-        s: query
+        s: query,
+        page
       }
     });
     console.log(response.data);
+    return response.data;
 
     return response.data.Search as Result[];
   } catch (error) {

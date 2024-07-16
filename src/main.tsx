@@ -8,6 +8,7 @@ import ErrorPage from './pages/errorPage/errorPage';
 import DetailedCard, {
   detailedCardLoader
 } from './components/detailedCard/detailedCard';
+import MainPage from './pages/main/mainPage';
 
 const router = createBrowserRouter([
   {
@@ -16,9 +17,18 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/:detailedId',
-        element: <DetailedCard />,
-        loader: detailedCardLoader
+        path: 'page/:pageId',
+        element: <MainPage />,
+        errorElement: <ErrorPage />,
+        //loader: detailedCardLoader
+        children: [
+          {
+            path: 'page/:pageId/detailed/:detailedId',
+            element: <DetailedCard />,
+            errorElement: <ErrorPage />
+            // loader: detailedCardLoader
+          }
+        ]
       }
     ]
   }

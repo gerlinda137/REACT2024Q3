@@ -59,9 +59,9 @@ const SearchInput = forwardRef<SearchInputRef, SearchProps>((props, ref) => {
         value={query}
         onChange={handleSearchChange}
       />
-      <Link to="/">
-        <button onClick={handleSearchSubmit}>Search</button>
-      </Link>
+      {/* <Link to="/"> */}
+      <button onClick={handleSearchSubmit}>Search</button>
+      {/* </Link> */}
     </section>
   );
 });

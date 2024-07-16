@@ -10,10 +10,9 @@ export async function loader() {
 export default function Root() {
   return (
     <div className="container">
-      <MainPage />
-      <div className="detail-container">
-        <Outlet />
-      </div>
+      <Outlet />
+      {/* <MainPage /> */}
+      <div className="detail-container"></div>
     </div>
   );
 }
