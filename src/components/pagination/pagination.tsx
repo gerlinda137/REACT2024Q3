@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 interface PaginationProps {
   currentPage: number;
@@ -9,10 +9,11 @@ interface PaginationProps {
 const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages }) => {
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === totalPages;
-  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handlePageChange = (newPage: number) => {
-    navigate(`page=${newPage}`);
+    searchParams.set('page', newPage.toString());
+    setSearchParams(searchParams);
   };
 
   const handlePrevClick = () => {

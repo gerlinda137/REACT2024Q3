@@ -6,6 +6,10 @@
   background-color: var(--bg);
   height: 100%;
   padding: 0 2em;
+
+  &__wrapper {
+    width: 100%;
+  }
 }
 
 .search-input {
@@ -15,6 +19,7 @@
 .results {
   display: flex;
   width: 100%;
+  justify-content: center;
   &__inner {
     padding-bottom: 2em;
   }
