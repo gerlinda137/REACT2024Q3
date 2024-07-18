@@ -8,7 +8,7 @@ const ErrorPage: React.FC = () => {
 
   return (
     <div className="error-page">
-      <h1>Oops!</h1>
+      <h1>Oops! 404</h1>
       <p>Sorry, an unexpected error has occurred.</p>
       <p>
         <i>{error.statusText ? error.statusText : 'Not Found'}</i>
