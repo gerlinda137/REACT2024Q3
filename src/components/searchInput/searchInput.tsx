@@ -5,7 +5,6 @@ import {
   useImperativeHandle,
   useState
 } from 'react';
-import { Link } from 'react-router-dom';
 import { Result } from '../../interfaces/interfaces';
 
 import './searchInput.scss';

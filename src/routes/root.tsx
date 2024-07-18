@@ -1,4 +1,3 @@
-import MainPage from '../pages/main/mainPage';
 import { Outlet } from 'react-router-dom';
 import { searchShows } from '../api/apiHandler';
 

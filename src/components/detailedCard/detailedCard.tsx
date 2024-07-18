@@ -1,58 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './detailedCard.scss';
-import {
-  defer,
-  Link,
-  Params,
-  useLoaderData,
-  useNavigate,
-  useSearchParams
-} from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { searchShowById } from '../../api/apiHandler';
 import { DetailedCardData } from '../../interfaces/interfaces';
 import SearchLoader from '../loader/loader';
-
-// export const detailedCardLoader = async ({
-//   params
-// }: {
-//   params: Params<string>;
-// }) => {
-//   if (params.detailedId) {
-//     try {
-//       const promise = searchShowById(params.detailedId);
-//       return defer({ promise });
-//     } catch (error) {
-//       console.error('Error fetching detailed card data:', error);
-//       throw error;
-//     }
-//   }
-// };
-export const detailedCardLoader = async ({
-  params
-}: {
-  params: Params<string>;
-}) => {
-  if (params.detailedId) {
-    try {
-      const detailedCardData = await searchShowById(params.detailedId);
-      console.log(detailedCardData);
-      return detailedCardData;
-    } catch (error) {
-      console.error('Error fetching detailed card data:', error);
-      throw error;
-    }
-  }
-  return null;
-};
-
-interface DetailedCardLoaderData {
-  promise: Promise<DetailedCardData>;
-}
-
-interface ErrorResponse {
-  Response: string;
-  Error: string;
-}
 
 export const DetailedCard: React.FC = () => {
   const [detailedCard, setDetailedCard] = useState<
@@ -60,9 +11,7 @@ export const DetailedCard: React.FC = () => {
   >();
   const [loading, setLoading] = useState<boolean>(true);
   const [searchParams, setSearchParams] = useSearchParams();
-  const detailedId = searchParams.get('detailedId');
-
-  const loaderData = useLoaderData() as DetailedCardData;
+  const detailedId = searchParams.get('detailed');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,21 +34,34 @@ export const DetailedCard: React.FC = () => {
     return <SearchLoader isLoading={true} />;
   }
 
-  return loaderData ? (
+  const detailedCardImg =
+    detailedCard?.Poster === 'N/A'
+      ? 'https://www.svgrepo.com/show/508699/landscape-placeholder.svg'
+      : detailedCard?.Poster;
+
+  return detailedCard ? (
     <div className="detailed-card">
-      <button className="detailed-card__close-btn">Close</button>
+      <button
+        className="detailed-card__close-btn"
+        onClick={() => {
+          searchParams.delete('detailed');
+          setSearchParams(searchParams);
+        }}
+      >
+        Close
+      </button>
       <img
-        src={loaderData.Poster}
-        alt={`${loaderData.Title} poster`}
+        src={detailedCardImg}
+        alt={`${detailedCard.Title} poster`}
         className="detailed-card__poster"
       />
       <div className="detailed-card__content">
-        <h2 className="detailed-card__title">{loaderData.Title}</h2>
-        <p className="detailed-card__year">Year: {loaderData.Year}</p>
+        <h2 className="detailed-card__title">{detailedCard.Title}</h2>
+        <p className="detailed-card__year">Year: {detailedCard.Year}</p>
         <p className="detailed-card__director">
-          Director: {loaderData.Director}
+          Director: {detailedCard.Director}
         </p>
-        <p className="detailed-card__description">{loaderData.Plot}</p>
+        <p className="detailed-card__description">{detailedCard.Plot}</p>
       </div>
     </div>
   ) : (

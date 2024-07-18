@@ -5,9 +5,9 @@ import './index.css';
 import ErrorBoundary from './components/errorBoundary/errorBoundary';
 import Root from './routes/root';
 import ErrorPage from './pages/errorPage/errorPage';
-import DetailedCard, {
-  detailedCardLoader
-} from './components/detailedCard/detailedCard';
+// import DetailedCard, {
+//   detailedCardLoader
+// } from './components/detailedCard/detailedCard';
 import MainPage, { mainPageLoader } from './pages/main/mainPage';
 
 const router = createBrowserRouter([
@@ -20,11 +20,6 @@ const router = createBrowserRouter([
         index: true,
         element: <MainPage />,
         loader: mainPageLoader
-      },
-      {
-        path: '/',
-        element: <DetailedCard />,
-        loader: detailedCardLoader
       }
     ]
   }

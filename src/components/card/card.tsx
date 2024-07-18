@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './card.scss';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
@@ -12,7 +11,7 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ id, title, year, image, className }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   const handleCardClick = () => {
@@ -29,13 +28,13 @@ const Card: React.FC<CardProps> = ({ id, title, year, image, className }) => {
       : image;
 
   return (
-    <div className={`card ${className}`} id={id} onClick={handleCardClick}>
+    <button className={`card ${className}`} id={id} onClick={handleCardClick}>
       <img src={cardImage} alt="Show poster" className="card-image" />
       <div className="card-content">
         <h2 className="card-title">{title}</h2>
         <p className="card-description">{year}</p>
       </div>
-    </div>
+    </button>
   );
 };
 

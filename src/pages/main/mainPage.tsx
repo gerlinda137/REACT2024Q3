@@ -9,13 +9,8 @@ import { searchShows } from '../../api/apiHandler';
 import './mainPage.scss';
 import { Result } from '../../interfaces/interfaces';
 import Pagination from '../../components/pagination/pagination';
-import {
-  Outlet,
-  Params,
-  useLoaderData,
-  useNavigate,
-  useSearchParams
-} from 'react-router-dom';
+import { Outlet, useLoaderData, useSearchParams } from 'react-router-dom';
+import DetailedCard from '../../components/detailedCard/detailedCard';
 
 export const mainPageLoader = async ({ request }: { request: Request }) => {
   const url = new URL(request.url);
@@ -38,20 +33,17 @@ export const mainPageLoader = async ({ request }: { request: Request }) => {
 };
 
 const MainPage: React.FC = () => {
-  const { results, query, page, totalPages } = useLoaderData() as {
+  const { results, page, totalPages } = useLoaderData() as {
     results: Result[];
-    query: string;
     page: number;
     totalPages: number;
   };
 
-  // const [results, setResults] = useState<Result[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  // const [totalPages, setTotalPages] = useState<number>(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const searchInputRef = useRef<SearchInputRef>(null);
+  const detailedId = searchParams.get('detailed');
 
-  // const page = parseInt(searchParams.get('page') || '1', 10);
   const handleSearch = async (query: string, page: number = 1) => {
     setLoading(true);
 
@@ -67,36 +59,6 @@ const MainPage: React.FC = () => {
       return [];
     }
   };
-
-  //   try {
-  //     const results = await searchShows(query, page);
-  //     setTotalPages(Math.ceil(results.totalResults / 10));
-  //     setResults(results.Search);
-  //     if (searchInputRef.current) {
-  //       searchInputRef.current.setResults(results);
-  //     }
-
-  //     setLoading(false);
-  //     return results;
-  //   } catch (error) {
-  //     console.error('Error searching shows:', error);
-  //     setLoading(false);
-  //     setResults([]);
-  //     return [];
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const getInitialResults = async () => {
-  //     const query = localStorage.getItem('query');
-  //     if (query) {
-  //       const results = await handleSearch(query, page);
-  //       setResults(results);
-  //     }
-  //   };
-
-  //   getInitialResults();
-  // }, []);
 
   useEffect(() => {
     if (searchInputRef.current) {
@@ -140,6 +102,7 @@ const MainPage: React.FC = () => {
           )}
         </section>
       </section>
+      {detailedId && <DetailedCard />}
       <Outlet />
     </div>
   );
