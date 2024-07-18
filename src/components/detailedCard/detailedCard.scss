@@ -1,0 +1,47 @@
+.detailed-card {
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 16px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 12em;
+  width: 70%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  position: relative;
+}
+
+.detailed-card__close-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.detailed-card__poster {
+  width: 300px;
+  height: 100%;
+  margin-right: 1em;
+}
+
+.detailed-card__content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.detailed-card__title {
+  font-size: 1.5em;
+  margin-bottom: 8px;
+}
+
+.detailed-card__year,
+.detailed-card__director,
+.detailed-card__description {
+  margin-bottom: 8px;
+}
+
+.detailed-card__description {
+  color: #555;
+}
