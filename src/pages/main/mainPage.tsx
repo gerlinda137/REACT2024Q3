@@ -11,6 +11,7 @@ import { Result } from '../../interfaces/interfaces';
 import Pagination from '../../components/pagination/pagination';
 import { Outlet, useLoaderData, useSearchParams } from 'react-router-dom';
 import DetailedCard from '../../components/detailedCard/detailedCard';
+import useSearchQuery from '../../hooks/useSearchQueryHook';
 
 export const mainPageLoader = async ({ request }: { request: Request }) => {
   const url = new URL(request.url);
@@ -44,13 +45,15 @@ const MainPage: React.FC = () => {
   const searchInputRef = useRef<SearchInputRef>(null);
   const detailedId = searchParams.get('detailed');
 
-  const handleSearch = async (query: string, page: number = 1) => {
+  const [query, setQuery] = useSearchQuery();
+
+  const handleSearch = async (searchQuery: string, page: number = 1) => {
     setLoading(true);
 
     try {
-      const results = await searchShows(query, page);
+      const results = await searchShows(searchQuery, page);
       setSearchParams({ query, page: page.toString() });
-      localStorage.setItem('query', query);
+      setQuery(searchQuery);
       setLoading(false);
       return results;
     } catch (error) {
