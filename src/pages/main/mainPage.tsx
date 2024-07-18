@@ -52,8 +52,8 @@ const MainPage: React.FC = () => {
 
     try {
       const results = await searchShows(searchQuery, page);
-      setSearchParams({ query, page: page.toString() });
-      setQuery(searchQuery);
+      setSearchParams({ searchQuery, page: page.toString() });
+      setQuery(query);
       setLoading(false);
       return results;
     } catch (error) {

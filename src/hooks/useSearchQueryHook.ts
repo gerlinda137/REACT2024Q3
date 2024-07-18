@@ -10,6 +10,7 @@ const useSearchQuery = () => {
     const urlQuery = searchParams.get('query');
     if (urlQuery) {
       setQuery(urlQuery);
+      localStorage.setItem('query', urlQuery);
     } else if (storedQuery) {
       setQuery(storedQuery);
       setSearchParams({ query: storedQuery });

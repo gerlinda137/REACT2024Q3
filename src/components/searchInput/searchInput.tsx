@@ -5,6 +5,7 @@ import {
   useImperativeHandle,
   useState
 } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Result } from '../../interfaces/interfaces';
 
 import './searchInput.scss';
@@ -22,6 +23,7 @@ export interface SearchInputRef {
 const SearchInput = forwardRef<SearchInputRef, SearchProps>((props, ref) => {
   const { className, placeholder, handleSearch } = props;
   const [query, setQuery] = useState('');
+  const [, setSearchParams] = useSearchParams();
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
@@ -34,6 +36,7 @@ const SearchInput = forwardRef<SearchInputRef, SearchProps>((props, ref) => {
         ref.current.setResults(searchResults);
       }
       localStorage.setItem('query', query);
+      setSearchParams({ query });
     } catch (error) {
       console.error('Error searching:', error);
     }
