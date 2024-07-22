@@ -12,6 +12,8 @@ import Pagination from '../../components/pagination/pagination';
 import { Outlet, useLoaderData, useSearchParams } from 'react-router-dom';
 import DetailedCard from '../../components/detailedCard/detailedCard';
 import useSearchQuery from '../../hooks/useSearchQueryHook';
+import ThemeSwitcher from '../../components/themeSwitcher/themeSwitcher';
+import { ThemeProvider } from '../../context/themeContext';
 
 export const mainPageLoader = async ({ request }: { request: Request }) => {
   const url = new URL(request.url);
@@ -70,44 +72,50 @@ const MainPage: React.FC = () => {
   }, [results]);
 
   return (
-    <div className="main-page__wrapper">
-      <section className="main-page">
-        <ErrorTrigger />
-        <SearchInput
-          className="search-input"
-          placeholder="Enter your search term..."
-          handleSearch={handleSearch}
-          ref={searchInputRef}
-        />
-        <section className="results">
-          {loading ? (
-            <SearchLoader isLoading={loading} text="Loading..." />
-          ) : results.length > 0 ? (
-            <div className="results__inner">
-              <div className="card-container">
-                {results.map((result) =>
-                  result ? (
-                    <Card
-                      key={result.imdbID}
-                      id={result.imdbID}
-                      title={result.Title}
-                      year={result.Year}
-                      image={result.Poster}
-                      className="result-card"
-                    />
-                  ) : null
-                )}
+    <ThemeProvider>
+      <div className="main-page__wrapper">
+        <section className="main-page">
+          <div className="header">
+            <ErrorTrigger />
+            <ThemeSwitcher />
+          </div>
+
+          <SearchInput
+            className="search-input"
+            placeholder="Enter your search term..."
+            handleSearch={handleSearch}
+            ref={searchInputRef}
+          />
+          <section className="results">
+            {loading ? (
+              <SearchLoader isLoading={loading} text="Loading..." />
+            ) : results.length > 0 ? (
+              <div className="results__inner">
+                <div className="card-container">
+                  {results.map((result) =>
+                    result ? (
+                      <Card
+                        key={result.imdbID}
+                        id={result.imdbID}
+                        title={result.Title}
+                        year={result.Year}
+                        image={result.Poster}
+                        className="result-card"
+                      />
+                    ) : null
+                  )}
+                </div>
+                <Pagination currentPage={page} totalPages={totalPages} />
               </div>
-              <Pagination currentPage={page} totalPages={totalPages} />
-            </div>
-          ) : (
-            <p>No results found</p>
-          )}
+            ) : (
+              <p>No results found</p>
+            )}
+          </section>
         </section>
-      </section>
-      {detailedId && <DetailedCard />}
-      <Outlet />
-    </div>
+        {detailedId && <DetailedCard />}
+        <Outlet />
+      </div>
+    </ThemeProvider>
   );
 };
 

@@ -1,6 +1,6 @@
 .detailed-card {
   display: flex;
-  border: 1px solid #ccc;
+  border: 1px solid var(--text-color);
   border-radius: 8px;
   overflow: hidden;
   margin: 16px 0;
@@ -17,6 +17,8 @@
   position: absolute;
   right: 0;
   top: 0;
+  background-color: var(--card-bg);
+  color: var(--text-color);
 }
 
 .detailed-card__poster {
@@ -43,5 +45,5 @@
 }
 
 .detailed-card__description {
-  color: #555;
+  color: var(--text-color);
 }
