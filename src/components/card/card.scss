@@ -25,6 +25,7 @@
 
   .card-content {
     padding: 16px;
+    color: var(--text-color);
 
     .card-title {
       font-size: 1rem;
@@ -36,4 +37,8 @@
       margin-top: auto;
     }
   }
+}
+
+.card-button {
+  background-color: transparent;
 }

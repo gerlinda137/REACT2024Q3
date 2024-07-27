@@ -5,10 +5,9 @@ import './index.css';
 import ErrorBoundary from './components/errorBoundary/errorBoundary';
 import Root from './routes/root';
 import ErrorPage from './pages/errorPage/errorPage';
-// import DetailedCard, {
-//   detailedCardLoader
-// } from './components/detailedCard/detailedCard';
+import { Provider } from 'react-redux';
 import MainPage, { mainPageLoader } from './pages/main/mainPage';
+import store from './store';
 
 const router = createBrowserRouter([
   {
@@ -27,8 +26,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   // <React.StrictMode>
-  <ErrorBoundary>
-    <RouterProvider router={router} />
-  </ErrorBoundary>
+  <Provider store={store}>
+    <ErrorBoundary>
+      <RouterProvider router={router} />
+    </ErrorBoundary>
+  </Provider>
   // </React.StrictMode>
 );
