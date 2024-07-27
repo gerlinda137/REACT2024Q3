@@ -20,7 +20,6 @@ const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       setIsDarkTheme(savedTheme === 'dark');
-      // document.body.className = savedTheme;
       document.documentElement.setAttribute(
         'dark',
         savedTheme === 'dark' ? 'true' : 'false'
