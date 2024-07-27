@@ -19,10 +19,13 @@ const checkboxSlice = createSlice({
       } else {
         state.selectedItems.splice(index, 1);
       }
+    },
+    unselectAll(state) {
+      state.selectedItems = [];
     }
   }
 });
 
-export const { toggleItem } = checkboxSlice.actions;
+export const { toggleItem, unselectAll } = checkboxSlice.actions;
 
 export default checkboxSlice.reducer;

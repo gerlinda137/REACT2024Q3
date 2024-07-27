@@ -14,6 +14,7 @@ import DetailedCard from '../../components/detailedCard/detailedCard';
 import useSearchQuery from '../../hooks/useSearchQueryHook';
 import ThemeSwitcher from '../../components/themeSwitcher/themeSwitcher';
 import { ThemeProvider } from '../../context/themeContext';
+import Flyout from '../../components/flayout/flyout';
 
 export const mainPageLoader = async ({ request }: { request: Request }) => {
   const url = new URL(request.url);
@@ -115,6 +116,7 @@ const MainPage: React.FC = () => {
         {detailedId && <DetailedCard />}
         <Outlet />
       </div>
+      <Flyout />
     </ThemeProvider>
   );
 };

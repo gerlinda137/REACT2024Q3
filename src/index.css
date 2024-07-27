@@ -21,6 +21,11 @@
   --contrast-txt-on-btn: #fff;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+
 html[dark='true'] {
   --background-color: #333;
   --text-color: #fff;
