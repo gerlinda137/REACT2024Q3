@@ -1,0 +1,25 @@
+.search-input {
+  display: flex;
+  padding: 2rem 1rem;
+}
+
+.search-input input {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--text-color);
+  padding: 0.5em 1em;
+  border-radius: 8px 0 0 8px;
+}
+
+.search-input button {
+  color: var(--text-color);
+  background-color: var(--background-color);
+  border: 1px solid var(--text-color);
+  border-radius: 0 8px 8px 0;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+.search-input button:hover {
+  transition: opacity 0.3s;
+  opacity: 0.8;
+}

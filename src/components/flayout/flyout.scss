@@ -1,0 +1,23 @@
+.flyout {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--card-bg);
+  padding: 10px 2em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.flyout p {
+  margin: 0;
+}
+
+.flyout button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: var(--btn-bg);
+  color: var(--text-color);
+}
